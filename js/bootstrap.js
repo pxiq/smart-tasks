@@ -26,7 +26,7 @@ POST(/\/tasks\/?$/, function() {
   this.task.notes = this.request.body.notes;
   this.task.title = this.request.body.title;
 
-	this.task.save();
+  this.task.save();
   this.response.code = 201;
   return redirect('/tasks/' + this.task.id);
 });

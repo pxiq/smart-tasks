@@ -1,10 +1,7 @@
-<html>
-	<head>
-		<title>Create a new task</title>
-	</head>
-	<body>
+[% SET host="http://$request.headers.Host" %]
+[% INCLUDE _header.html title="Create a new task" %]
 		<h1>Create a new task:</h1>
- 		<form action="http://[% request.headers.Host %]/tasks" method="post">
+ 		<form action="[% host %]/tasks" method="post">
       <div class="field">
 				<label for="title">Task title:</label>
 				<input type="text" name="title" id="title" class="text" />
@@ -17,5 +14,4 @@
 				<input type="submit" value="Save" />	     
       </div>
     </form>
-	</body>
-</html>
+[% INCLUDE _footer.html %]
