@@ -3,14 +3,15 @@ system.use("com.joyent.Resource");
 
 var Task = new Resource('task');
 
+// Do not return 404!
 GET("/", function() {
   return redirect("/index.html");
 });
-
+// Form for a new Task:
 GET(/\/tasks\/new\/?$/, function() {
   return template("form.html");
 });
-
+// Tasks list:
 GET(/\/tasks\/?$/, function() {
 	var tasks = Task.search({});
 	if ( tasks.length ) {
@@ -21,6 +22,7 @@ GET(/\/tasks\/?$/, function() {
 	}
 });
 
+// Create a new Task:
 POST(/\/tasks\/?$/, function() {
   this.task = new Task();
   this.task.notes = this.request.body.notes;
@@ -30,7 +32,7 @@ POST(/\/tasks\/?$/, function() {
   this.response.code = 201;
   return redirect('/tasks/' + this.task.id);
 });
-
+// Single task show:
 GET(/\/tasks\/(.+)\/?$/, function( anId ) {
   try {
     this.task = Task.get( anId );
