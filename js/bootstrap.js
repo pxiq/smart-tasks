@@ -17,5 +17,15 @@ POST(/\/tasks\/?$/, function() {
   this.task.title = this.request.body.title;
 
 	this.task.save();
+  this.response.code = 201;
+  return redirect('/tasks/' + this.task.id);
+});
+
+GET(/\/tasks\/(.+)\/?$/, function( anId ) {
+  try {
+    this.task = Task.get( anId );
+  } catch(e) {
+    this.task = { id: null, title: null, notes: "no such task" };
+  }
   return template("task.html");
 });
