@@ -1,0 +1,12 @@
+<html>
+	<head>
+		<title>Task details:</title>
+	</head>
+	<body>
+		<a href="http://[% request.headers.Host %]/tasks/[% task.id %]">http://[% request.headers.Host %]/tasks/[% task.id %]</a>
+    [% SET ud = task.created %]
+    <h2>Created on [% ud %]</h2>
+		<p><strong>Title:</strong> [% task.title %]</p>
+		<p><strong>Notes:</strong> [% task.notes %]</p>
+	</body>
+</html>
