@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>Tasks</title>
+  </head>
+  <body>
+    <h1>Tasks</h1>
+		<ul id="tasks">
+			[% FOREACH task = tasks %]
+			<li>
+				[% SET ud = task.created %]
+				<a href="http://[% request.headers.Host %]/tasks/[% task.id %]">[% task.title %]</a> - <small>Created on: [% ud %]</small>
+			</li>
+			[% END %]
+		</ul>
+		<p><a href="http://[% request.headers.Host %]/tasks/new">Create new task &raquo;</a></p>
+  </body>
+</html>

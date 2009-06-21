@@ -11,6 +11,16 @@ GET(/\/tasks\/new\/?$/, function() {
   return template("form.html");
 });
 
+GET(/\/tasks\/?$/, function() {
+	var tasks = Task.search({});
+	if ( tasks.length ) {
+		this.tasks = tasks;
+		return template("list.html");
+	} else {
+		redirect('/tasks/new');
+	}
+});
+
 POST(/\/tasks\/?$/, function() {
   this.task = new Task();
   this.task.notes = this.request.body.notes;
