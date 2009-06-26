@@ -36,7 +36,7 @@ GET(/\/tasks\/new\/?$/, function() {
 GET(/\/tasks\/?$/, function() {
   // Temporary while we set values for position:
   var allTheTasks = Task.search({}, {sort: 'created'});
-  for (i=0; i < allTheTasks.length; i++) {
+  for (var i=0; i < allTheTasks.length; i++) {
     var theTask = Task.get( allTheTasks[i].id );
     if (!theTask.position) {
       theTask.position = i + 1;
@@ -108,6 +108,21 @@ DELETE(/\/tasks\/(.+)$/, function( anId ) {
     this.task.remove();
     return JSON.stringify( { ok: true } );
   } catch(e) {
+    return JSON.stringify( { ok: false } );
+  }
+});
+
+// Reorder tasks
+PUT(/\/tasks\/?$/, function() {
+  try {
+    var tasksSorted = this.request.content.replace(/^task\[\]=/, '').split('&task[]=');
+    for ( var i=0; i < tasksSorted.length; i++ ) {
+      var theTask = Task.get( tasksSorted[i] );
+      theTask.position = i + 1;
+      theTask.save();
+    }
+    return JSON.stringify( { ok: true } );
+  } catch (e) {
     return JSON.stringify( { ok: false } );
   }
 });
