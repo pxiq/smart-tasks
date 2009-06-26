@@ -6,6 +6,9 @@
 			<li>
 				[% SET ud = task.created %]
 				<a href="[% host %]/tasks/[% task.id %]">[% task.title %]</a> - <small>Created on: [% ud %]</small>
+				<a class="delete" href="/tasks/[% task.id %]" data-remove="task_[% task.id %]">
+		      delete
+		    </a>
 			</li>
 			[% END %]
 		</ul>
