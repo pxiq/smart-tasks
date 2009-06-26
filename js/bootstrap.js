@@ -2,7 +2,13 @@ system.use("com.joyent.Sammy");
 system.use("com.joyent.Resource");
 system.use("org.json.json2");
 
-var Task = new Resource('task');
+var Task = new Resource('task', {
+  '@save': function() {
+    if (!this.completed) {
+      this.completed = 0;
+    }
+  }
+});
 
 // Do not return 404!
 GET("/", function() {
