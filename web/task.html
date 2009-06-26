@@ -1,6 +1,6 @@
 [% SET host="http://$request.headers.Host" %]
 [% INCLUDE _header.html title="Task details:" %]
-		<a href="[% host %]/tasks/[% task.id %]">http://[% request.headers.Host %]/tasks/[% task.id %]</a>
+		<a href="[% host %]/tasks/[% task.id %]">[% host %]/tasks/[% task.id %]</a>
     [% SET ud = task.created %]
     <h2>Created on [% ud %]</h2>
 		<p><strong>Title:</strong> [% task.title %]</p>
