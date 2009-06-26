@@ -60,10 +60,13 @@ GET(/\/tasks\/(.+)\/?$/, function( anId ) {
 PUT(/\/tasks\/(.+)/, function( anId ) {
   try {
     this.task = Task.get( anId );
-    this.task.notes = this.request.body.notes;
-    this.task.title = this.request.body.title;
+    if ( this.request.body.title ) {
+      this.task.notes = this.request.body.notes;
+      this.task.title = this.request.body.title;
+    } else { // This is a "complete" task request:
+      this.task.completed = ( this.request.body.completed ) ? 1 : 0;
+    }
     this.task.save();
-
     return JSON.stringify( { ok: true } );
   } catch(e) {
     return JSON.stringify( { ok: false } );
