@@ -56,6 +56,20 @@ GET(/\/tasks\/(.+)\/?$/, function( anId ) {
   return template("task.html");
 });
 
+// Update a task:
+PUT(/\/tasks\/(.+)/, function( anId ) {
+  try {
+    this.task = Task.get( anId );
+    this.task.notes = this.request.body.notes;
+    this.task.title = this.request.body.title;
+    this.task.save();
+
+    return JSON.stringify( { ok: true } );
+  } catch(e) {
+    return JSON.stringify( { ok: false } );
+  }
+});
+
 // Delete a task:
 DELETE(/\/tasks\/(.+)$/, function( anId ) {
   this.response.mime = 'application/json';
