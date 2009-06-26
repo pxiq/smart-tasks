@@ -7,6 +7,18 @@ var Task = new Resource('task', {
     if (!this.completed) {
       this.completed = 0;
     }
+    var tasks = Task.search({});
+    if (!this.position) {
+      this.position = ( tasks.length ) ? ( tasks.length + 1 ) : 1;
+    }
+  },
+  '@remove': function() {
+    var nextTasks = Task.search({ position: [ { '>': this.position } ] }, {sort: 'position'});
+    nextTasks.forEach(function( aTask ){
+      var theTask = Task.get( aTask.id );
+      theTask.position--;
+      theTask.save();
+    });
   }
 });
 
@@ -22,7 +34,16 @@ GET(/\/tasks\/new\/?$/, function() {
 
 // Tasks list:
 GET(/\/tasks\/?$/, function() {
-	var tasks = Task.search({});
+  // Temporary while we set values for position:
+  var allTheTasks = Task.search({}, {sort: 'created'})
+  for (i=0; i < allTheTasks.length; i++) {
+    var theTask = Task.get( allTheTasks[i].id );
+    if (!theTask.position) {
+      theTask.position = i + 1;
+      theTask.save();
+    }
+  }
+	var tasks = ( this.request.query.completed ) ? Task.search({}, {sort: 'position'}) : Task.search({completed: {'!=': 1}}, {sort: 'position'});
 	if ( tasks.length ) {
 		this.tasks = tasks;
 		return template("list.html");
