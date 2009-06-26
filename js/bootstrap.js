@@ -8,10 +8,12 @@ var Task = new Resource('task');
 GET("/", function() {
   return redirect("/index.html");
 });
+
 // Form for a new Task:
 GET(/\/tasks\/new\/?$/, function() {
   return template("form.html");
 });
+
 // Tasks list:
 GET(/\/tasks\/?$/, function() {
 	var tasks = Task.search({});
@@ -33,6 +35,17 @@ POST(/\/tasks\/?$/, function() {
   this.response.code = 201;
   return redirect('/tasks/' + this.task.id);
 });
+
+// Web form to edit existing task:
+GET(/\/tasks\/(.+)\/edit\/?$/, function( anId ) {
+  try {
+    this.task = Task.get( anId );
+  } catch(e) {
+    this.task = { id: null, title: null, notes: null };
+  }
+  return template("form.html");
+});
+
 // Single task show:
 GET(/\/tasks\/(.+)\/?$/, function( anId ) {
   try {
