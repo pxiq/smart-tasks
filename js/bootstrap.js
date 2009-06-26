@@ -35,7 +35,7 @@ GET(/\/tasks\/new\/?$/, function() {
 // Tasks list:
 GET(/\/tasks\/?$/, function() {
   // Temporary while we set values for position:
-  var allTheTasks = Task.search({}, {sort: 'created'})
+  var allTheTasks = Task.search({}, {sort: 'created'});
   for (i=0; i < allTheTasks.length; i++) {
     var theTask = Task.get( allTheTasks[i].id );
     if (!theTask.position) {
@@ -43,13 +43,13 @@ GET(/\/tasks\/?$/, function() {
       theTask.save();
     }
   }
-	var tasks = ( this.request.query.completed ) ? Task.search({}, {sort: 'position'}) : Task.search({completed: {'!=': 1}}, {sort: 'position'});
-	if ( tasks.length ) {
-		this.tasks = tasks;
-		return template("list.html");
-	} else {
-		redirect('/tasks/new');
-	}
+  var tasks = ( this.request.query.completed ) ? Task.search({}, {sort: 'position'}) : Task.search({completed: {'!=': 1}}, {sort: 'position'});
+  if ( tasks.length ) {
+    this.tasks = tasks;
+    return template("list.html");
+  } else {
+    redirect('/tasks/new');
+  }
 });
 
 // Create a new Task:
