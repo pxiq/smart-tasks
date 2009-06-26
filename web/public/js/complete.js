@@ -1,8 +1,8 @@
 $(document).ready( function() {
-	
-	var theCheckbox = $('input[type=checkbox]');
-	var theForm = $(theCheckbox).attr('data-complete');
-	$( "#" + theForm ).bind('submit', function() {
+
+  var theCheckbox = $('input[type=checkbox]');
+  var theForm = $(theCheckbox).attr('data-complete');
+  $( "#" + theForm ).bind('submit', function() {
     $.ajax({
       type: 'PUT',
       url: $(this).attr('action'),
@@ -22,10 +22,10 @@ $(document).ready( function() {
     });
     return false;
   });
-	
+
   $('input[type=checkbox]').click( function() {
-		$( "#" + theForm ).trigger("submit");
-		return true;
+    $( "#" + theForm ).trigger("submit");
+    return true;
   });
 
 });
