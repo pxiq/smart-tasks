@@ -1,8 +1,8 @@
 $(document).ready(function() {
-	$("#tasks").sortable({ 
-		cursor: 'move',
-		update: function () {
-			$.ajax({
+  $("#tasks").sortable({ 
+    cursor: 'move',
+    update: function () {
+      $.ajax({
 	      type: 'put',
 	      url: '/tasks',
 	      dataType: 'json',
