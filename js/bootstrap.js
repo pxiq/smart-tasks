@@ -1,5 +1,6 @@
 system.use("com.joyent.Sammy");
 system.use("com.joyent.Resource");
+system.use("org.json.json2");
 
 var Task = new Resource('task');
 
@@ -40,4 +41,16 @@ GET(/\/tasks\/(.+)\/?$/, function( anId ) {
     this.task = { id: null, title: null, notes: "no such task" };
   }
   return template("task.html");
+});
+
+// Delete a task:
+DELETE(/\/tasks\/(.+)$/, function( anId ) {
+  this.response.mime = 'application/json';
+  try {
+    this.task = Task.get( anId );
+    this.task.remove();
+    return JSON.stringify( { ok: true } );
+  } catch(e) {
+    return JSON.stringify( { ok: false } );
+  }
 });

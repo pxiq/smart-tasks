@@ -3,7 +3,7 @@
 		<h1>Tasks</h1>
 		<ul id="tasks">
 			[% FOREACH task = tasks %]
-			<li>
+			<li id="task_[% task.id %]">
 				[% SET ud = task.created %]
 				<a href="[% host %]/tasks/[% task.id %]">[% task.title %]</a> - <small>Created on: [% ud %]</small>
 				<a class="delete" href="/tasks/[% task.id %]" data-remove="task_[% task.id %]">
