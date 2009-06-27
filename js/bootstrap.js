@@ -2,6 +2,8 @@ system.use("com.joyent.Sammy");
 system.use("com.joyent.Resource");
 system.use("org.json.json2");
 
+system.use("auth");
+
 var Task = new Resource('task', {
   '@save': function() {
     if (!this.completed) {

@@ -17,3 +17,6 @@
   <div id="loadingDiv">
     <img src="/images/spinner.gif" alt="Loading ..." width="25px" height="25px" ><br />
   </div>
+  [% IF user %]
+  <p>Logged in as <em>[% user.id %]</em>, <a href="[% host %]/logout">logout</a>.</p>
+  [% END %]

@@ -1,0 +1,20 @@
+[% SET host="http://$request.headers.Host" %]
+[% INCLUDE _header.html title="Login" %]
+		<h1>Login:</h1>
+		[% IF error %]
+		<p class="error">[% error.message %]</p>
+		[% END %]
+		<form action="[% host %]/login" method="post">
+		  <div class="field">
+		    <label for="username">User name:</label>
+		    <input type="text" name="username" id="username" class="text" />
+		  </div>
+			<div class="field">
+		    <label for="password">Password:</label>
+		    <input type="password" name="password" id="password" class="text" />
+		  </div>
+		  <div class="field">
+		    <input type="submit" value="Login" />	     
+		  </div>
+		</form>
+[% INCLUDE _footer.html %]
