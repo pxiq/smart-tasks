@@ -16,10 +16,10 @@ var User = new Resource('user', {
 User.transient = true;
 // We can change this values by whatever we want:
 User.username = 'admin';
-User.password = 'secret';
+User.password = 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4'; // secret
 
 User.prototype.authenticate = function( aPassword, theStack ) {
-  if ( aPassword == User.password ) {
+  if ( system.digest.sha1.hex( aPassword ) == User.password ) {
     theStack.session.userid = this.id;
     theStack.user = this;
     theStack.session.save();
