@@ -11,7 +11,7 @@ before(function () {
   }
 
   if( !this.user ) {
-    if ( this.request.uri != '/login' && this.request.uri != '/' && this.request.uri != '/index.html' && !this.request.uri.match(/^\/[js|images|css]/)){
+    if ( this.request.uri.match(/^\/tasks/) ){
       this.session.redirect_to = this.request.uri;
       this.session.save();
       return redirect('/login');
