@@ -1,3 +1,9 @@
 #tasks li form {
 	display: inline;
 }
+
+#loadingDiv {
+ 	float: right;
+	margin-right: 2em;
+	display: none;
+}
