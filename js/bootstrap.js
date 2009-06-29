@@ -156,5 +156,5 @@ GET('/tasks.opml', function(){
     opml.body.outline+= <outline title={task["title"]} {status}_note={task["notes"]}/>;
   }
   this.response.mime = 'application/xml';
-  return opml.toString();
+	return ["<?xml version=\"1.0\" encoding=\"utf-8\"?>", opml.toString()].join("\n");
 });
