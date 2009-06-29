@@ -1,7 +1,7 @@
 system.use("com.joyent.Sammy");
 system.use("com.joyent.Resource");
 system.use("org.json.json2");
-
+system.use("com.google.code.date");
 system.use("auth");
 
 var Task = new Resource('task', {
@@ -127,4 +127,34 @@ PUT(/\/tasks\/?$/, function() {
   } catch (e) {
     return JSON.stringify( { ok: false } );
   }
+});
+
+GET('/tasks.opml', function(){
+  var opml = <opml version="1.0">
+    <head>
+      <title>Tasks list</title>
+      <ownerName>User Name</ownerName>
+      <ownerEmail>user@example.com</ownerEmail>
+      <expansionState />
+    </head>
+  </opml>;
+
+  var firstTask = Task.search({}, {sort: 'created', limit: 1})[0];
+  var lastCreatedTask = Task.search({}, {sort: 'created', limit: 1, reverse: true})[0];
+  var lastModifiedTask = Task.search({}, {sort: 'updated', limit: 1, reverse: true})[0];
+
+  opml.head.dateCreated = firstTask['created'].toString('ddd, dd MMM yyyy HH:mm:ss') +' GMT';
+  if ( lastCreatedTask['created'] >= lastModifiedTask['updated'] ) {
+    opml.head.dateModified = lastCreatedTask['created'].toString('ddd, dd MMM yyyy HH:mm:ss') +' GMT';
+  } else {
+    opml.head.dateModified = lastModifiedTask['updated'].toString('ddd, dd MMM yyyy HH:mm:ss') +' GMT'
+  }
+
+  var allTheTasks = Task.search({}, {sort: 'position'})
+  for each (task in allTheTasks) {
+		status = (task["completed"] == 1) ? '_status="checked" ' : '';
+    opml.body.outline+= <outline title={task["title"]} {status}_note={task["notes"]}/>;
+  }
+  this.response.mime = 'application/xml';
+  return opml.toString();
 });
