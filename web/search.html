@@ -1,0 +1,15 @@
+[% SET host="http://$request.headers.Host" %]
+[% INCLUDE _header.html title="Search identi.ca" %]
+  <script type="application/javascript" src="/js/identica.js"></script>
+	<h1>Search identi.ca:</h1>
+	<form action="[% host %]/identi.ca" method="post" id="search_form">
+	  <div class="field">
+	    <label for="search">Search:</label>
+	    <input type="text" name="search" id="search" class="text" value="@joyent" />
+	  </div>
+	  <div class="field">
+	    <input type="submit" value="Go!" />	     
+	  </div>
+	</form>
+	<div id="updateme"></div>
+[% INCLUDE _footer.html %]

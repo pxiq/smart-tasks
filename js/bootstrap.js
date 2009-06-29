@@ -3,6 +3,7 @@ system.use("com.joyent.Resource");
 system.use("org.json.json2");
 system.use("com.google.code.date");
 system.use("auth");
+system.use("identica");
 
 var Task = new Resource('task', {
   '@save': function() {

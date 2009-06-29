@@ -1,0 +1,8 @@
+<div id="updateme">
+[% FOREACH entry = entries %]
+<div class="message">
+	<img src="[% entry.icon %]" alt="[% entry.author.name %]"/>
+	<strong><a href="[% entry.author.uri %]">[% entry.author.name %]</a></strong>: <a href="[% entry.alternate %]">[% entry.title %]</a>
+</div>
+[% END %]
+</div>
